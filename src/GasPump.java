@@ -1,9 +1,8 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class GasPump {
-    private Double regularGasPrice = 1.89;
-    private Double premiumGasPrice = 1.97;
-    private Double supremeGasPrice = 2.06;
+    private HashMap<String, Double> fuelTypes = new HashMap<>();
     private Scanner user = new Scanner(System.in);
     private String paymentType;
     private String fuelType;
@@ -11,6 +10,7 @@ public class GasPump {
     private Double totalGallons;
 
     public void go() {
+        establishFuelTypes();
         selectPaymentType();
         selectFuelType();
         if (paymentType.equals("cash")) {
@@ -19,6 +19,12 @@ public class GasPump {
             getAmountGallons();
         }
         askForReceipt();
+    }
+
+    private void establishFuelTypes() {
+        fuelTypes.put("regular", 1.89);
+        fuelTypes.put("premium", 1.97);
+        fuelTypes.put("supreme", 2.06);
     }
 
     private void selectPaymentType() {
@@ -42,7 +48,7 @@ public class GasPump {
     }
 
     private void selectFuelType() {
-        System.out.println("Gas Prices:\n--------------------\nRegular - $" + regularGasPrice + "\nPremium - $" + premiumGasPrice + "\nSupreme - $" + supremeGasPrice + "\n--------------------");
+        System.out.println("Gas Prices:\n--------------------\nRegular - $" + fuelTypes.get("regular") + "\nPremium - $" + fuelTypes.get("premium") + "\nSupreme - $" + fuelTypes.get("supreme") + "\n--------------------");
         System.out.println("Please select a fuel type:\n1) Regular 2) Premium 3) Supreme");
         while (true) {
             String choice = user.nextLine();
@@ -72,12 +78,10 @@ public class GasPump {
     }
 
     private void convertToGallons(Double cash, String fuelType) {
-        if (fuelType.equals("regular")) {
-            totalGallons = Math.round((cash / regularGasPrice) * 100d) / 100d;
-        } else if (fuelType.equals("premium")) {
-            totalGallons = Math.round((cash / premiumGasPrice) * 100d) / 100d;
-        } else{
-            totalGallons = Math.round((cash / supremeGasPrice) * 100d) / 100d;
+        try{
+            totalGallons = Math.round((cash / fuelTypes.get(fuelType)) * 100d) / 100d;
+        }catch (Exception ex){
+            System.out.println(ex);
         }
     }
 
@@ -91,11 +95,11 @@ public class GasPump {
 
     private void convertToCash(Double gallons, String fuelType){
         if (fuelType.equals("regular")) {
-            totalPrice = Math.round((gallons * regularGasPrice) * 100d) / 100d;
+            totalPrice = Math.round((gallons * fuelTypes.get("regular")) * 100d) / 100d;
         } else if (fuelType.equals("premium")) {
-            totalPrice = Math.round((gallons * premiumGasPrice) * 100d) / 100d;
+            totalPrice = Math.round((gallons * fuelTypes.get("premium")) * 100d) / 100d;
         } else{
-            totalPrice = Math.round((gallons * supremeGasPrice) * 100d) / 100d;
+            totalPrice = Math.round((gallons * fuelTypes.get("supreme")) * 100d) / 100d;
         }
     }
 
