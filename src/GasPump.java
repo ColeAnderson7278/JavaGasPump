@@ -18,6 +18,7 @@ public class GasPump {
         } else if (paymentType.equals("card")) {
             getAmountGallons();
         }
+        askForReceipt();
     }
 
     private void selectPaymentType() {
@@ -96,5 +97,22 @@ public class GasPump {
         } else{
             totalPrice = Math.round((gallons * supremeGasPrice) * 100d) / 100d;
         }
+    }
+
+    private void askForReceipt(){
+        System.out.println("Would you like your receipt?\n1) Yes 2) No");
+        while (true){
+            String choice = user.nextLine();
+            if (choice.equals("1")){
+                showReceipt();
+            }else if(choice.equals("2")){
+                System.out.println("Thank your for your purchase and please come back again.");
+            }System.out.println("Please enter a valid input.");
+        }
+    }
+
+    private void showReceipt(){
+        System.out.println("__________Gas-Mart__________");
+        System.out.println("Item: Gasoline\nGallons: " + totalGallons + "\nTotal: $" + totalPrice);
     }
 }
