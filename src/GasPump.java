@@ -105,8 +105,10 @@ public class GasPump {
             String choice = user.nextLine();
             if (choice.equals("1")){
                 showReceipt();
+                break;
             }else if(choice.equals("2")){
                 System.out.println("Thank your for your purchase and please come back again.");
+                break;
             }System.out.println("Please enter a valid input.");
         }
     }
