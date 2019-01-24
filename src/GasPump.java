@@ -104,17 +104,13 @@ public class GasPump {
         while (true){
             String choice = user.nextLine();
             if (choice.equals("1")){
-                showReceipt();
+                Receipt userReceipt = new Receipt(fuelType, totalGallons, totalPrice);
+                System.out.println(userReceipt.toString());
                 break;
             }else if(choice.equals("2")){
                 System.out.println("Thank your for your purchase and please come back again.");
                 break;
             }System.out.println("Please enter a valid input.");
         }
-    }
-
-    private void showReceipt(){
-        System.out.println("__________Gas-Mart__________");
-        System.out.println("Item: Gasoline\nGallons: " + totalGallons + "\nTotal: $" + totalPrice);
     }
 }
